@@ -9,7 +9,7 @@ class Game{
         })
 
     }
-
+    
     update(state) {
         database.ref('/').update({
             gameState: state
@@ -34,7 +34,7 @@ class Game{
     players=[player1,player2];
 
         }
-    
+        
     play(){
         
                 form.hide();
@@ -45,15 +45,18 @@ class Game{
                  var y=200;
                  var index =0;
                  drawSprites();
+                 //console.log(allPlayers)
                  for(var plr in allPlayers){
                     
                     
                      index = index+1;
+                     //console.log( plr);
                      x = 500-allPlayers[plr].distance;
                      y=500;
-                     
-                     players[index -1].x = x;
-                     players[index - 1].y = y;
+                     /* console.log(x,y)
+                     console.log( players[index -1]); */
+                     players[index -1].position.x = x;
+                     players[index - 1].position.y = y;
                        
                      if(index === player.index){
                          
@@ -99,27 +102,20 @@ class Game{
                      fruitGroup.add(fruits);
                      
                  }
+                 console.log(player.index);
                  
-                  if (player.index !== null) {
-                     //fill code here, to destroy the objects.
-                     //fruits.remove(fruitGroup);
-                     /*fruitGroup.destroyEach();
-                     score=score+1
-                     textSize(30);
-                     fill("red");
-                     text("score: "+score,100,80);*/
+            fruitGroup.collide(player2,function(spriteA,spriteB){
+                spriteA.remove();
+            });
 
-                  }
-                
+           
+            fruitGroup.collide(player1,function(spriteA,spriteB){
+                spriteA.remove();
+            });
 
-         
-         
-        
-         
-
+          
+   }
+   end(){
+    console.log("Game Ended");
     }
-
-    end(){
-       console.log("Game Ended");
-    }
-}
+   }
